@@ -1,0 +1,52 @@
+# Creative Tab
+itemGroup.thaumores=Таум-руды
+
+# Items
+item.shardCluster.0.name=Сырой грозовой кристальный кластер
+item.shardCluster.1.name=Сырой огненный кристальный кластер
+item.shardCluster.2.name=Сырой ледяной кристальный кластер
+item.shardCluster.3.name=Сырой земляной кристальный кластер
+item.shardCluster.4.name=Сырой кластер кристалла порядка
+item.shardCluster.5.name=Сырой энтропийный кристальный кластер
+
+# Blocks
+tile.infusedOre.0.name=Грозовая руда ({base})
+tile.infusedOre.1.name=Огненная руда ({base})
+tile.infusedOre.2.name=Ледяная рула ({base})
+tile.infusedOre.3.name=Руда земляного кристалла ({base})
+tile.infusedOre.4.name=Руда кристалла порядка ({base})
+tile.infusedOre.5.name=Энтропийная руда ({base})
+
+# Waila config
+option.hideinfusedore=Скрыть руду
+
+# Thaumcraft research icon
+tc.research_category.THAUMORES=Таум-руды
+tc.research_name.INFUSEDBEDROCK=Кристальная коренная порода
+tc.research_text.INFUSEDBEDROCK=Я не могу это сломать!
+tc.research_name.INFUSEDENDSTONE=Кристальный камень края
+tc.research_text.INFUSEDENDSTONE=Небесные кристаллы
+tc.research_name.INFUSEDNETHERRACK=Кристальный адский камень
+tc.research_text.INFUSEDNETHERRACK=Когда не хватает огненных кристаллов...
+tc.research_name.RAWCLUSTERS=Сырые кластеры
+tc.research_text.RAWCLUSTERS=Нет, они не готовятся в печи
+tc.research_name.VISUALACUITY=Наблюдательность таум-шахтера
+tc.research_text.VISUALACUITY=Острый глаз на кристаллы
+tc.research_name.ENTROPICCLUSTERS=Энтропия сырых кластеров
+tc.research_text.ENTROPICCLUSTERS=Очень оригинальная идея для получения кристаллов
+tc.research_name.WARPVISUALACUITY=Искажённое зрение
+tc.research_text.WARPVISUALACUITY=Нужно больше мозгов зомби!
+tc.research_name.CRYSTALLIZERAWCLUSTERS=Кристаллизация сырых кластеров
+tc.research_text.CRYSTALLIZERAWCLUSTERS=Мы будем делать кристалл из кристалла!
+
+# Thaumcraft research description
+thaumores.research_page.INFUSEDENDSTONE=Путешествуя по §5Краю§0, вы наткнулись на кристальную руду.<IMG>thaumores:textures/misc/research1.png:0:0:256:256:.3</IMG>Свойствами она очень близка к своим собратьям из обычного мира, но её видно только через §5магическую призму§0. Также, если использовать на ней аспект §8Perditio§0, вы сможете вытащить из неё кристаллы, а руда станет обычным эндерняком.
+thaumores.research_page.INFUSEDBEDROCK=Добывая руду близ коренной породы, вы наткнулись на особую кристальную руду.<IMG>thaumores:textures/misc/research2.png:0:0:256:256:.3</IMG>Её видно только через §5магическую призму§0 и невозможно разрушить, но если использовать на ней аспект §8Perditio§0, вы сможете вытащить из неё кристаллы, а руда станет обычной коренной породой.
+thaumores.research_page.INFUSEDNETHERRACK=Путешествуя по §5Нижнему миру§0, вы наткнулись на кристальную руду.<IMG>thaumores:textures/misc/research3.png:0:0:256:256:.3</IMG>Она почти аналогична обычной кристальной руде, но её видно только через §5магическую призму§0. Также, если использовать на ней аспект §8Perditio§0, вы сможете вытащить из неё кристаллы, а руда станет обычным адским камнем.
+thaumores.research_page.RAWCLUSTERS=Изучая основные аспекты и необычные кристальные руды, вы обнаружили странные кристаллы. Это, грубо говоря, теже кристальные кластеры, но они находятся в переходном состоянии. Чтобы их получить, вы должны использовать на них аспект §fOrdo§0 и аспект руды (с зажатым Shift).<IMG>thaumores:textures/misc/research4.png:0:0:212:31:0.6</IMG><LINE>Пока что вы не можете найти им применение, да и на плавление они не реагируют...
+thaumores.research_page.VISUALACUITY=Вы уже знаете, что необычную кристальную руду видно только через §5магическую призму§0, но с небольшого расстояния, что даже §5очки отровения§0 не сильно увеличивают её видимость. Вы разработали особые методики обращения с §5магической призмой§0, которые позволяют увеличить видимость кристальных руд в два раза, но вы считаете, что этого недостаточно...
+thaumores.research_page.ENTROPICCLUSTERS=Попытка влить в сырой кластер аспекты разрушения и кристалла оказалась хорошей и рабочей идеей. Теперь вы можете разрушать их, чтобы получать обычные кристаллы для своих нужд.
+thaumores.research_page.WARPVISUALACUITY=После этого исследования у меня часто болит голова...<IMG>thaumores:textures/misc/research4.png:0:32:256:143:0.5</IMG>И снова эти странные символы...<BR>§oМне кажется, или я стал лучше видеть?..§r
+thaumores.research_page.CRYSTALLIZERAWCLUSTERS=Вы уже знаете, что сырые кластеры - переходное состояние §5обычных кластеров§0. И вот, теперь открыт способ, позволяющий 'подтолкнуть' эти кластеры к их нормальной форме. Для этого просто влейте в них аспект кристалла и немного аспекта кластера.
+
+# MJaroslav

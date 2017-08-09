@@ -1,0 +1,52 @@
+# Creative Tab
+itemGroup.thaumores=ThaumOres
+
+# Items
+item.shardCluster.0.name=Raw Air Crystal Cluster
+item.shardCluster.1.name=Raw Fire Crystal Cluster
+item.shardCluster.2.name=Raw Water Crystal Cluster
+item.shardCluster.3.name=Raw Earth Crystal Cluster
+item.shardCluster.4.name=Raw Order Crystal Cluster
+item.shardCluster.5.name=Raw Entropy Crystal Cluster
+
+# Blocks
+tile.infusedOre.0.name=Air Infused {base}
+tile.infusedOre.1.name=Fire Infused {base}
+tile.infusedOre.2.name=Water Infused {base}
+tile.infusedOre.3.name=Earth Infused {base}
+tile.infusedOre.4.name=Order Infused {base}
+tile.infusedOre.5.name=Entropy Infused {base}
+
+# Waila config
+option.hideinfusedore=Hide Infused Ore
+
+# Thaumcraft research icon
+tc.research_category.THAUMORES=ThaumOres
+tc.research_name.INFUSEDBEDROCK=Crystal Bedrock
+tc.research_text.INFUSEDBEDROCK=I can't break it!
+tc.research_name.INFUSEDENDSTONE=Crystal Endstone
+tc.research_text.INFUSEDENDSTONE=Sky Shard
+tc.research_name.INFUSEDNETHERRACK=Crystal Netherrack
+tc.research_text.INFUSEDNETHERRACK=When there is not enough Fire Shard...
+tc.research_name.RAWCLUSTERS=Raw Clusters
+tc.research_text.RAWCLUSTERS=No, you can't melt it in furnace.
+tc.research_name.VISUALACUITY=Sensitivity Taum-miner
+tc.research_text.VISUALACUITY=Keen eye on Cristal
+tc.research_name.ENTROPICCLUSTERS=Entropy Raw Clusters
+tc.research_text.ENTROPICCLUSTERS=Very original idea for getting shards
+tc.research_name.WARPVISUALACUITY=The distorted sight
+tc.research_text.WARPVISUALACUITY=NEEEED MOREE ZOMBIE'S BRAINS!
+tc.research_name.CRYSTALLIZERAWCLUSTERS=Crystallization of Raw Clusters
+tc.research_text.CRYSTALLIZERAWCLUSTERS=We will do crystal from crystal?! Strange? No this is magic....
+
+# Thaumcraft research description
+thaumores.research_page.INFUSEDENDSTONE=When you travel in the §5End§0,you found strange ore. Wait a second, It's a Crystal ore.<IMG>thaumores:textures/misc/research1.png:0:0:256:256:.3</IMG>It's very close to brethren in overworld, but you can see only through §5Magic prism§0. Also, if you use the aspect of §8Perditio§0 on ore, you can purify ore and get Crystal, but ore will become endestoune.
+thaumores.research_page.INFUSEDBEDROCK=Mining ore near bedrock, you find on strange crystal ore. <IMG>thaumores:textures/misc/research2.png:0:0:256:256:.3</IMG>You can see only through §5Magic prism§0 and can't brake it, if you use the aspect of §8Perditio§0 on ore, you can purify ore and get Crystal, but ore will become bedrock.
+thaumores.research_page.INFUSEDNETHERRACK=When you travel in the §5Nether§0,you found Crystal ore..<IMG>thaumores:textures/misc/research3.png:0:0:256:256:.3</IMG>It's very close to brethren in overworld, but you can see only through §5Magic prism§0. Also, if you use the aspect of §8Perditio§0 on ore, you can purify ore and get Crystal, but ore will become netherrak.
+thaumores.research_page.RAWCLUSTERS=Studying basic aspects and infused crystal ore, you found a strange crystal. This is, roughly speaking, the same crystal clusters, but they are in a transitional state. To get them, you have to use them the aspect §fOrdo§0 and the aspect of ore (with Shift).<IMG>thaumores:textures/misc/research4.png:0:0:212:31:0.6</IMG><LINE>Yet you can't find a use for them, and in melting they do not respond...
+thaumores.research_page.VISUALACUITY=You all ready know that infused crystal ore you can see only through the §5Magic prism§0, but from a short distance that even §5Goggles of Revealing§0 does not greatly increase its visibility. You have developed special techniques for the treatment of §5Magic prism§0 that allow you to increase the visibility of crystal ore two times, but do you think that this is not enough...
+thaumores.research_page.ENTROPICCLUSTERS=Attempt to pour in the raw cluster aspects of destruction and crystal were good and working idea. Now you can destroy them to regular crystals for your needs.
+thaumores.research_page.WARPVISUALACUITY=After this study, I often have a headache...<IMG>thaumores:textures/misc/research4.png:0:32:256:143:0.5</IMG>And again, these strange characters...<BR>§OI began to see better?..§r
+thaumores.research_page.CRYSTALLIZERAWCLUSTERS=You already know that raw clusters transition state §5clusters§0. And here, now open a way to 'push' these clusters to their normal form. To do this, simply pour them in the aspect of crystal and some aspect of the cluster.
+
+# Transleted by Svwergio_mel
