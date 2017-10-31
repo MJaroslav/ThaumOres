@@ -4,25 +4,26 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import baubles.api.BaublesApi;
-import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.SidedProxy;
+import cpw.mods.fml.common.event.FMLConstructionEvent;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.registry.GameRegistry;
+import mjaroslav.mcmods.mjutils.common.objects.ModInitHandler;
 import mjaroslav.mcmods.thaumores.common.TOCommonProxy;
+import mjaroslav.mcmods.thaumores.common.block.BlockInfusedBlockOre;
+import mjaroslav.mcmods.thaumores.common.block.ItemInfusedBlockOre;
 import mjaroslav.mcmods.thaumores.common.config.TOConfig;
 import mjaroslav.mcmods.thaumores.common.creativetab.TOCreativeTab;
 import mjaroslav.mcmods.thaumores.common.event.TOEvents;
 import mjaroslav.mcmods.thaumores.common.init.TOBlocks;
-import mjaroslav.mcmods.thaumores.common.init.TOIntegration;
-import mjaroslav.mcmods.thaumores.common.init.TOItems;
-import mjaroslav.mcmods.thaumores.common.init.TOThaum;
-import mjaroslav.mcmods.thaumores.common.init.TOWorld;
+import mjaroslav.mcmods.thaumores.common.tile.TileInfusedOre;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.inventory.IInventory;
-import net.minecraftforge.common.MinecraftForge;
 import thaumcraft.common.Thaumcraft;
 import thaumcraft.common.lib.events.EventHandlerRunic;
 
@@ -33,11 +34,11 @@ public class ThaumOresMod {
 	/** ThaumOres: name */
 	public static final String NAME = "ThaumOres";
 	/** ThaumOres: version */
-	public static final String VERSION = "1.3.2";
+	public static final String VERSION = "1.4.0";
 	/** ThaumOres: guiFactory */
 	public static final String GUIFACTORY = "mjaroslav.mcmods.thaumores.client.gui.TOGuiFactory";
 	/** ThaumOres: dependencies */
-	public static final String DEPENDENCIES = "required-after:Thaumcraft@[4.2.3.5,);";
+	public static final String DEPENDENCIES = "required-after:Thaumcraft@[4.2.3.5,);required-after:mjutils@[1.7.10-2,);";
 
 	/** ThaumOres: server proxy */
 	public static final String SERVERPROXY = "mjaroslav.mcmods.thaumores.common.TOCommonProxy";
@@ -56,76 +57,42 @@ public class ThaumOresMod {
 	/** ThaumOres: instance */
 	public static ThaumOresMod instance;
 
-	/** Path to ThaumOres configuration file */
-	public static String configFilePath;
-
 	public static TOEvents events = new TOEvents();
+
+	/** ThaumOres init handler */
+	private static ModInitHandler initHandler = new ModInitHandler(MODID);
+
+	/** ThaumOres config */
+	public static TOConfig config = new TOConfig();
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
-		configFilePath = event.getModConfigurationDirectory() + "/" + MODID + ".cfg";
-		TOConfig.init();
-		logInitDebug("Pre init");
-		logInitDebug("Config init done");
-		instance = this;
-		logInitDebug("Instance pre init done");
-		TOBlocks.preInit(event);
-		logInitDebug("Blocks pre init done");
-		TOItems.preInit(event);
-		logInitDebug("Items pre init done");
-		TOThaum.preInit(event);
-		logInitDebug("Thaum pre init done");
-		TOWorld.preInit(event);
-		logInitDebug("World pre init done");
-		TOIntegration.preInit(event);
-		logInitDebug("Integration pre init done");
-		proxy.preInit(event);
-		logInitDebug("Proxy pre init done");
-		logInitDebug("Pre init done");
+		this.config.preInit(event);
+		this.initHandler.preInit(event);
+		this.proxy.preInit(event);
 	}
 
 	@EventHandler
 	public void init(FMLInitializationEvent event) {
-		logInitDebug("Initialization");
-		MinecraftForge.EVENT_BUS.register(events);
-		FMLCommonHandler.instance().bus().register(events);
-		logInitDebug("Events init done");
-		TOBlocks.init(event);
-		logInitDebug("Blocks init done");
-		TOItems.init(event);
-		logInitDebug("Items init done");
-		TOThaum.init(event);
-		logInitDebug("Thaum init done");
-		TOWorld.init(event);
-		logInitDebug("World init done");
-		TOIntegration.init(event);
-		logInitDebug("Integration init done");
-		proxy.init(event);
-		logInitDebug("Proxy init done");
-		logInitDebug("Init done");
+		this.config.init(event);
+		this.initHandler.init(event);
+		this.proxy.init(event);
 	}
 
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event) {
-		logInitDebug("Post init");
-		TOBlocks.postInit(event);
-		logInitDebug("Blocks post init done");
-		TOItems.postInit(event);
-		logInitDebug("Items post init done");
-		TOThaum.postInit(event);
-		logInitDebug("Thaum post init done");
-		TOWorld.postInit(event);
-		logInitDebug("World post init done");
-		TOIntegration.postInit(event);
-		logInitDebug("Integration post init done");
-		proxy.postInit(event);
-		logInitDebug("Proxy post init done");
-		logInitDebug("Post init done");
-		logInitDebug("ThaumOres ready!");
+		this.config.postInit(event);
+		this.initHandler.postInit(event);
+		this.proxy.postInit(event);
 	}
 
-	public static void logInitDebug(String text) {
-		if (TOConfig.debugEnable && TOConfig.debugInit)
+	@EventHandler
+	public void constr(FMLConstructionEvent event) {
+		this.initHandler.findModules(event);
+	}
+
+	public static void logDebug(String text) {
+		if (TOConfig.debugEnable)
 			log.info(text);
 	}
 

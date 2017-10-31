@@ -1,21 +1,21 @@
 package mjaroslav.mcmods.thaumores.common.config;
 
-import java.io.File;
 import java.lang.reflect.Field;
 
+import org.apache.logging.log4j.Logger;
+
+import mjaroslav.mcmods.mjutils.common.objects.ConfigurationBase;
 import mjaroslav.mcmods.thaumores.ThaumOresMod;
 import net.minecraftforge.common.config.Configuration;
 
-public class TOConfig {
+public class TOConfig extends ConfigurationBase {
 	/** ThaumOres: configuration */
-	public static Configuration config;
+	private static Configuration instance;
 
 	/** Debug options */
 	public static final String categoryDebug = "debug";
 	/** Enable debug */
 	public static boolean debugEnable;
-	/** Log mod initialization (pre and post too) */
-	public static boolean debugInit;
 	/** Log ThaumOres researches */
 	public static boolean debugResearches;
 	/** Log configuration fields */
@@ -108,120 +108,97 @@ public class TOConfig {
 	/** Infused endstone generation max vein size */
 	public static int generationEndstoneVeinSize;
 
-	/** Create or/and read ThaumOres configuration file */
-	public static void init() {
-		if (config == null) {
-			config = new Configuration(new File(ThaumOresMod.configFilePath));
-		}
-		try {
-			config.load();
-		} catch (Exception e) {
-			ThaumOresMod.log.error("Unable to load configuration!");
-		} finally {
-			if (config.hasChanged()) {
-				config.save();
-			}
-		}
-		sync();
-	}
-
-	/** Synchronize configuration fields with file and save changes */
-	public static void sync() {
+	@Override
+	public void readFields() {
 		syncDebug();
 		syncGeneral();
 		syncGeneration();
-
 		if (debugEnable && debugConfig)
 			logFields();
-
-		if (config.hasChanged()) {
-			config.save();
-			ThaumOresMod.log.info("Configuration saved");
-		}
 	}
 
 	private static void syncDebug() {
-		config.addCustomCategoryComment(categoryDebug, "Debug options");
-		debugEnable = config.getBoolean("enable", categoryDebug, false, "Enable debug");
-		debugInit = config.getBoolean("init", categoryDebug, true, "Log mod initialization (pre and post too)");
-		debugConfig = config.getBoolean("config", categoryDebug, true, "Log configuration fields ");
-		debugResearches = config.getBoolean("researches", categoryDebug, true, "Log ThaumOres researches");
-		debugRemover = config.getBoolean("remover", categoryDebug, true,
+		instance.addCustomCategoryComment(categoryDebug, "Debug options");
+		debugEnable = instance.getBoolean("enable", categoryDebug, false, "Enable debug");
+		debugConfig = instance.getBoolean("config", categoryDebug, true, "Log configuration fields ");
+		debugResearches = instance.getBoolean("researches", categoryDebug, true, "Log ThaumOres researches");
+		debugRemover = instance.getBoolean("remover", categoryDebug, true,
 				"Enable block remover (break any block with stick) (don't remove infused ore)");
-		debugScanner = config.getBoolean("scanner", categoryDebug, true,
+		debugScanner = instance.getBoolean("scanner", categoryDebug, true,
 				"Enable ore scanner (right click on any block with stick) (Only scans infused ore)");
-		debugRemoverScannerRadius = config.getInt("remover_scanner_radius", categoryDebug, 8, 1, 30,
+		debugRemoverScannerRadius = instance.getInt("remover_scanner_radius", categoryDebug, 8, 1, 30,
 				"Block remover and scanner radius");
 	}
 
 	private static void syncGeneral() {
-		config.addCustomCategoryComment(categoryGeneral, "Main options");
-		generalAngryPigs = config.getBoolean("angry_pigs", categoryGeneral, true,
+		instance.addCustomCategoryComment(categoryGeneral, "Main options");
+		generalAngryPigs = instance.getBoolean("angry_pigs", categoryGeneral, true,
 				"Pig Zombies will be angry if you mine infused ore in Nether");
-		generalAspectCount = config.getInt("aspect_count", categoryGeneral, 8, 1, 16,
+		generalAspectCount = instance.getInt("aspect_count", categoryGeneral, 8, 1, 16,
 				"Raw clusters and infused ore primal aspect count ");
-		generalWandVisCount = config.getInt("wand_vis_count", categoryGeneral, 1, 0, 100,
+		generalWandVisCount = instance.getInt("wand_vis_count", categoryGeneral, 1, 0, 100,
 				"Count of perditio for wand click on infused ore");
-		generalWandVisCountPrimal = config.getInt("wand_vis_count_primal", categoryGeneral, 2, 1, 200,
+		generalWandVisCountPrimal = instance.getInt("wand_vis_count_primal", categoryGeneral, 2, 1, 200,
 				"Count of ordo and ore aspect for wand click on infused ore");
-		generalWarpVisualAcuityModifier = config.getFloat("warp_visual_acuity_modifier", categoryGeneral, 1.5F, 0.01F,
+		generalWarpVisualAcuityModifier = instance.getFloat("warp_visual_acuity_modifier", categoryGeneral, 1.5F, 0.01F,
 				10F, "Multiplier for warp visual acuity (Distance = warpCount * this value)");
 
-		config.addCustomCategoryComment(categoryGeneralGraphics, "Graphics options");
-		generalGraphicsClustersOldIcons = config.getBoolean("clusters_olds_icons", categoryGeneralGraphics, false,
+		instance.addCustomCategoryComment(categoryGeneralGraphics, "Graphics options");
+		generalGraphicsClustersOldIcons = instance.getBoolean("clusters_olds_icons", categoryGeneralGraphics, false,
 				"Use old icons (Heavy shards) for raw clusters");
-		generalGraphicsRenderInfusedOreParticles = config.getBoolean("infused_ore_particles", categoryGeneralGraphics,
+		generalGraphicsRenderInfusedOreParticles = instance.getBoolean("infused_ore_particles", categoryGeneralGraphics,
 				true, "Render particles on infused ore without Glasses/Thaumometer");
-		generalGraphicsRenderInfusedOreParticlesGlasses = config.getBoolean("infused_ore_particles_glasses",
+		generalGraphicsRenderInfusedOreParticlesGlasses = instance.getBoolean("infused_ore_particles_glasses",
 				categoryGeneralGraphics, true, "Render particles on infused ore with Glasses/Thaumometer");
-		generalGraphicsRenderInfusedOreParticlesChance = config.getInt("infused_ore_particles_chance",
+		generalGraphicsRenderInfusedOreParticlesChance = instance.getInt("infused_ore_particles_chance",
 				categoryGeneralGraphics, 10000, 4000, 10000,
 				"Chance spawn particle on infused ore without Glasses/Thaumometer (1 in this value)");
-		generalGraphicsRenderInfusedOreParticlesGlassesChance = config.getInt("infused_ore_particles_glasses_chance",
+		generalGraphicsRenderInfusedOreParticlesGlassesChance = instance.getInt("infused_ore_particles_glasses_chance",
 				categoryGeneralGraphics, 100, 20, 10000,
 				"Chance spawn particle on infused ore with Glasses/Thaumometer (1 in this value)");
 	}
 
 	private static void syncGeneration() {
-		config.addCustomCategoryComment(categoryGeneration, "WorldGen options");
-		generationEnable = config.getBoolean("enable", categoryGeneration, true, "Enable generation");
-		generationOres = config.getBoolean("ores", categoryGeneration, true, "Enable ore generation");
+		instance.addCustomCategoryComment(categoryGeneration, "WorldGen options");
+		generationEnable = instance.getBoolean("enable", categoryGeneration, true, "Enable generation");
+		generationOres = instance.getBoolean("ores", categoryGeneration, true, "Enable ore generation");
 
-		config.addCustomCategoryComment(categoryGenerationBedrock, "Infused bedrock generation options ");
-		generationBedrockEnable = config.getBoolean("enable", categoryGenerationBedrock, true, "Enable generation");
-		generationBedrockMaxOnChunk = config.getInt("max_on_chunk", categoryGenerationBedrock, 8, 1, 30,
+		instance.addCustomCategoryComment(categoryGenerationBedrock, "Infused bedrock generation options ");
+		generationBedrockEnable = instance.getBoolean("enable", categoryGenerationBedrock, true, "Enable generation");
+		generationBedrockMaxOnChunk = instance.getInt("max_on_chunk", categoryGenerationBedrock, 8, 1, 30,
 				"Max veins on chunk");
-		generationBedrockVeinSize = config.getInt("vein_size", categoryGenerationBedrock, 4, 1, 10,
+		generationBedrockVeinSize = instance.getInt("vein_size", categoryGenerationBedrock, 4, 1, 10,
 				"Infused bedrock generation max vein size");
-		generationBedrockMinY = config.getInt("min_y", categoryGenerationBedrock, 3, 0, 256, "Min generation height");
-		generationBedrockMaxY = config.getInt("max_y", categoryGenerationBedrock, 5, 0, 256, "Max generation height");
+		generationBedrockMinY = instance.getInt("min_y", categoryGenerationBedrock, 3, 0, 256, "Min generation height");
+		generationBedrockMaxY = instance.getInt("max_y", categoryGenerationBedrock, 5, 0, 256, "Max generation height");
 
 		if (generationBedrockMaxY < generationBedrockMinY)
 			generationBedrockMaxY = generationBedrockMinY;
 
-		config.addCustomCategoryComment(categoryGenerationNetherrack, "Infused netherrack generation options ");
-		generationNetherrackEnable = config.getBoolean("enable", categoryGenerationNetherrack, true,
+		instance.addCustomCategoryComment(categoryGenerationNetherrack, "Infused netherrack generation options ");
+		generationNetherrackEnable = instance.getBoolean("enable", categoryGenerationNetherrack, true,
 				"Enable generation");
-		generationNetherrackMaxOnChunk = config.getInt("max_on_chunk", categoryGenerationNetherrack, 15, 1, 30,
+		generationNetherrackMaxOnChunk = instance.getInt("max_on_chunk", categoryGenerationNetherrack, 15, 1, 30,
 				"Max veins on chunk");
-		generationNetherrackVeinSize = config.getInt("vein_size", categoryGenerationNetherrack, 4, 1, 10,
+		generationNetherrackVeinSize = instance.getInt("vein_size", categoryGenerationNetherrack, 4, 1, 10,
 				"Infused bedrock generation max vein size");
-		generationNetherrackMinY = config.getInt("min_y", categoryGenerationNetherrack, 5, 0, 256,
+		generationNetherrackMinY = instance.getInt("min_y", categoryGenerationNetherrack, 5, 0, 256,
 				"Min generation height");
-		generationNetherrackMaxY = config.getInt("max_y", categoryGenerationNetherrack, 123, 0, 256,
+		generationNetherrackMaxY = instance.getInt("max_y", categoryGenerationNetherrack, 123, 0, 256,
 				"Max generation height");
 
 		if (generationNetherrackMaxY < generationNetherrackMinY)
 			generationNetherrackMaxY = generationNetherrackMinY;
 
-		config.addCustomCategoryComment(categoryGenerationEndstone, "Infused endstone generation options ");
-		generationEndstoneEnable = config.getBoolean("enable", categoryGenerationEndstone, true, "Enable generation");
-		generationEndstoneMaxOnChunk = config.getInt("max_on_chunk", categoryGenerationEndstone, 15, 1, 30,
+		instance.addCustomCategoryComment(categoryGenerationEndstone, "Infused endstone generation options ");
+		generationEndstoneEnable = instance.getBoolean("enable", categoryGenerationEndstone, true, "Enable generation");
+		generationEndstoneMaxOnChunk = instance.getInt("max_on_chunk", categoryGenerationEndstone, 15, 1, 30,
 				"Max veins on chunk");
-		generationEndstoneVeinSize = config.getInt("vein_size", categoryGenerationEndstone, 4, 1, 10,
+		generationEndstoneVeinSize = instance.getInt("vein_size", categoryGenerationEndstone, 4, 1, 10,
 				"Infused bedrock generation max vein size");
-		generationEndstoneMinY = config.getInt("min_y", categoryGenerationEndstone, 0, 0, 256, "Min generation height");
-		generationEndstoneMaxY = config.getInt("max_y", categoryGenerationEndstone, 128, 0, 256,
+		generationEndstoneMinY = instance.getInt("min_y", categoryGenerationEndstone, 0, 0, 256,
+				"Min generation height");
+		generationEndstoneMaxY = instance.getInt("max_y", categoryGenerationEndstone, 128, 0, 256,
 				"Max generation height");
 
 		if (generationEndstoneMaxY < generationEndstoneMinY)
@@ -248,5 +225,25 @@ public class TOConfig {
 			}
 		}
 		ThaumOresMod.logLine();
+	}
+
+	@Override
+	public Configuration getInstance() {
+		return this.instance;
+	}
+
+	@Override
+	public Logger getLogger() {
+		return ThaumOresMod.log;
+	}
+
+	@Override
+	public String getModId() {
+		return ThaumOresMod.MODID;
+	}
+
+	@Override
+	public void setInstance(Configuration newConfig) {
+		this.instance = newConfig;
 	}
 }

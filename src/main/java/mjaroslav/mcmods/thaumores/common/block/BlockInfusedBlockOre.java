@@ -55,6 +55,7 @@ public class BlockInfusedBlockOre extends Block implements ITileEntityProvider {
 			throw new IllegalArgumentException("Block is not normal opaque cube");
 		this.baseBlock = base;
 		setStepSound(base.stepSound);
+		setCreativeTab(ThaumOresMod.tab);
 		setBlockName("infusedOre");
 	}
 

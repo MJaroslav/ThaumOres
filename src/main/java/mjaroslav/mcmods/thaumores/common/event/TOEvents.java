@@ -3,7 +3,6 @@ package mjaroslav.mcmods.thaumores.common.event;
 import java.util.ArrayList;
 import java.util.List;
 
-import cpw.mods.fml.client.event.ConfigChangedEvent;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
 import mjaroslav.mcmods.thaumores.ThaumOresMod;
@@ -121,11 +120,5 @@ public class TOEvents {
 				}
 			}
 		}
-	}
-
-	@SubscribeEvent
-	public void onConfigChanged(ConfigChangedEvent event) {
-		if (event.modID.equals(ThaumOresMod.MODID))
-			TOConfig.sync();
 	}
 }

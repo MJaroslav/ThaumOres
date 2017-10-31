@@ -8,6 +8,8 @@ import java.util.List;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import mjaroslav.mcmods.mjutils.common.objects.IModModule;
+import mjaroslav.mcmods.mjutils.common.objects.ModInitModule;
 import mjaroslav.mcmods.thaumores.ThaumOresMod;
 import mjaroslav.mcmods.thaumores.common.block.BlockInfusedBlockOre;
 import mjaroslav.mcmods.thaumores.common.config.TOConfig;
@@ -31,25 +33,26 @@ import thaumcraft.common.config.ConfigBlocks;
 import thaumcraft.common.config.ConfigItems;
 
 /** Register all thaumcraft things */
-public class TOThaum {
+@ModInitModule(modid = ThaumOresMod.MODID)
+public class TOThaum implements IModModule {
 	/** Primal aspect list */
 	private static final Aspect[] primals = new Aspect[] { Aspect.AIR, Aspect.FIRE, Aspect.WATER, Aspect.EARTH,
 			Aspect.ORDER, Aspect.ENTROPY };
 
-	/** Wand for pages */
-	private static ItemStack basicWand = new ItemStack(ConfigItems.itemWandCasting);
-
 	/** Special page list */
 	public static HashMap<String, Object> recipes = new HashMap();
 
-	public static void preInit(FMLPreInitializationEvent event) {
+	@Override
+	public void preInit(FMLPreInitializationEvent event) {
 	}
 
-	public static void init(FMLInitializationEvent event) {
+	@Override
+	public void init(FMLInitializationEvent event) {
+	}
+
+	@Override
+	public void postInit(FMLPostInitializationEvent event) {
 		initRecipes();
-	}
-
-	public static void postInit(FMLPostInitializationEvent event) {
 		for (int meta = 0; meta < 6; meta++) {
 			addClusterAspect(primals[meta], meta);
 			addInfusedOreAspect((BlockInfusedBlockOre) TOBlocks.netherrackInfusedOre, primals[meta], meta);
@@ -235,6 +238,7 @@ public class TOThaum {
 
 	/** Register recipes pages */
 	private static void initRecipes() {
+		ItemStack basicWand = new ItemStack(ConfigItems.itemWandCasting);
 		ItemStack empty = new ItemStack(ConfigBlocks.blockHole, 1, 15);
 		recipes.put("InfusedBedrock",
 				Arrays.asList(new Object[] { new AspectList().add(Aspect.ENTROPY, TOConfig.generalWandVisCount),
@@ -284,13 +288,23 @@ public class TOThaum {
 	}
 
 	public static void logResearchItems() {
-		ThaumOresMod.log.info("==================================================================");
+		ThaumOresMod.logLine();
 		ThaumOresMod.log.info("ThaumOres research items: ");
 		ThaumOresMod.log.info("Category: '" + category + "'");
 		for (ResearchItem item : researchItems) {
 			ThaumOresMod.log.info("Item '" + item.key + "' (" + item.getName() + "), pos [" + item.displayColumn + ";"
 					+ item.displayRow + "]");
 		}
-		ThaumOresMod.log.info("==================================================================");
+		ThaumOresMod.logLine();
+	}
+
+	@Override
+	public String getModuleName() {
+		return "Thaum";
+	}
+
+	@Override
+	public int getPriority() {
+		return 4;
 	}
 }
