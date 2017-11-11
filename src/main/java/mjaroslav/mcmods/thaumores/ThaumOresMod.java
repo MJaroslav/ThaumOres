@@ -34,11 +34,11 @@ public class ThaumOresMod {
 	/** ThaumOres: name */
 	public static final String NAME = "ThaumOres";
 	/** ThaumOres: version */
-	public static final String VERSION = "1.4.0";
+	public static final String VERSION = "1.5.0";
 	/** ThaumOres: guiFactory */
 	public static final String GUIFACTORY = "mjaroslav.mcmods.thaumores.client.gui.TOGuiFactory";
 	/** ThaumOres: dependencies */
-	public static final String DEPENDENCIES = "required-after:Thaumcraft@[4.2.3.5,);required-after:mjutils@[1.7.10-2,);";
+	public static final String DEPENDENCIES = "required-after:Thaumcraft@[4.2.3.5,);required-after:mjutils@[1.4.0,);";
 
 	/** ThaumOres: server proxy */
 	public static final String SERVERPROXY = "mjaroslav.mcmods.thaumores.common.TOCommonProxy";
@@ -98,22 +98,5 @@ public class ThaumOresMod {
 
 	public static void logLine() {
 		ThaumOresMod.log.info("==================================================================");
-	}
-
-	public static int getTotalWarp(EntityPlayer player) {
-		int warp = Thaumcraft.proxy.getPlayerKnowledge().getWarpTotal(player.getCommandSenderName());
-
-		warp += EventHandlerRunic.getFinalWarp(player.getCurrentEquippedItem(), player);
-
-		for (int a = 0; a < 4; ++a) {
-			warp += EventHandlerRunic.getFinalWarp(player.inventory.armorItemInSlot(a), player);
-		}
-
-		IInventory baubles = BaublesApi.getBaubles(player);
-		for (int a = 0; a < 4; ++a) {
-			warp += EventHandlerRunic.getFinalWarp(baubles.getStackInSlot(a), player);
-		}
-
-		return warp;
 	}
 }

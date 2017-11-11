@@ -2,10 +2,9 @@ package mjaroslav.mcmods.thaumores.client.render.tile;
 
 import org.lwjgl.opengl.GL11;
 
-import baubles.api.BaublesApi;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import mjaroslav.mcmods.thaumores.ThaumOresMod;
+import mjaroslav.mcmods.mjutils.common.thaum.ThaumUtils;
 import mjaroslav.mcmods.thaumores.common.block.BlockInfusedBlockOre;
 import mjaroslav.mcmods.thaumores.common.config.TOConfig;
 import mjaroslav.mcmods.thaumores.common.init.TOThaum;
@@ -18,17 +17,13 @@ import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
-import thaumcraft.api.ThaumcraftApiHelper;
 import thaumcraft.api.nodes.IRevealer;
 import thaumcraft.client.lib.UtilsFX;
-import thaumcraft.common.Thaumcraft;
 import thaumcraft.common.blocks.BlockCustomOreItem;
 import thaumcraft.common.items.relics.ItemThaumometer;
-import thaumcraft.common.lib.events.EventHandlerRunic;
 
 @SideOnly(Side.CLIENT)
 public class TileInfusedBlockOreRenderer extends TileEntitySpecialRenderer {
@@ -59,10 +54,8 @@ public class TileInfusedBlockOreRenderer extends TileEntitySpecialRenderer {
 			boolean hasWarpVisualAcuity = false;
 			boolean canView = false;
 			if (viewer instanceof EntityPlayer) {
-				hasVisualAcuity = ThaumcraftApiHelper.isResearchComplete(((EntityPlayer) viewer).getCommandSenderName(),
-						TOThaum.riVisualAcuity);
-				hasWarpVisualAcuity = ThaumcraftApiHelper
-						.isResearchComplete(((EntityPlayer) viewer).getCommandSenderName(), TOThaum.riWarpVisualAcuity);
+				hasVisualAcuity = ThaumUtils.isComplete((EntityPlayer) viewer, TOThaum.riVisualAcuity);
+				hasWarpVisualAcuity = ThaumUtils.isComplete((EntityPlayer) viewer, TOThaum.riWarpVisualAcuity);
 				if ((((EntityPlayer) viewer).inventory.armorItemInSlot(3) != null)
 						&& (((EntityPlayer) viewer).inventory.armorItemInSlot(3).getItem() instanceof IRevealer)
 						&& (((IRevealer) ((EntityPlayer) viewer).inventory.armorItemInSlot(3).getItem())
@@ -76,7 +69,7 @@ public class TileInfusedBlockOreRenderer extends TileEntitySpecialRenderer {
 					viewDistance = hasVisualAcuity ? 16.0D : 8.0D;
 				}
 				if (hasWarpVisualAcuity) {
-					int warp = ThaumOresMod.getTotalWarp((EntityPlayer) viewer);
+					int warp = ThaumUtils.getWarp((EntityPlayer) viewer);
 					canView = true;
 					double warpViewDistance = warp * TOConfig.generalWarpVisualAcuityModifier;
 					if (warpViewDistance > viewDistance)

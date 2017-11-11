@@ -1,18 +1,10 @@
 package mjaroslav.mcmods.thaumores.common.event;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.common.gameevent.TickEvent;
 import mjaroslav.mcmods.thaumores.ThaumOresMod;
 import mjaroslav.mcmods.thaumores.common.block.BlockInfusedBlockOre;
 import mjaroslav.mcmods.thaumores.common.config.TOConfig;
-import mjaroslav.mcmods.thaumores.common.init.TOBlocks;
-import net.minecraft.block.Block;
-import net.minecraft.entity.monster.EntityPigZombie;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.util.ChatComponentText;
@@ -20,53 +12,8 @@ import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.Action;
 import net.minecraftforge.event.world.BlockEvent;
-import thaumcraft.api.ThaumcraftApiHelper;
-import thaumcraft.common.Thaumcraft;
-import thaumcraft.common.lib.network.PacketHandler;
-import thaumcraft.common.lib.network.playerdata.PacketSyncResearch;
 
 public class TOEvents {
-	@SubscribeEvent
-	public void eventHarvestDrops(BlockEvent.HarvestDropsEvent event) {
-		World world = event.world;
-		int x = event.x;
-		int y = event.y;
-		int z = event.z;
-		EntityPlayer player = event.harvester;
-		Block block = event.block;
-		if (block == TOBlocks.netherrackInfusedOre && TOConfig.generalAngryPigs)
-			if (player != null && !player.capabilities.isCreativeMode)
-				if (!event.isSilkTouching) {
-					if (!world.isRemote) {
-						List<EntityPigZombie> list = world.getEntitiesWithinAABB(EntityPigZombie.class,
-								block.getCollisionBoundingBoxFromPool(world, x, y, z).expand(32.0D, 32.0D, 32.0D));
-
-						for (EntityPigZombie entity : list)
-							entity.becomeAngryAt(player);
-					}
-				}
-	}
-
-	public static ArrayList<String> researchCopyList = new ArrayList<String>();
-
-	@SubscribeEvent
-	public void eventPlayerTickEvent(TickEvent.PlayerTickEvent event) {
-		if (!event.player.worldObj.isRemote) {
-			for (String researchCopy : researchCopyList) {
-				String[] researchInfo = researchCopy.split(":");
-				if (researchInfo != null && researchInfo.length == 2) {
-					if (ThaumcraftApiHelper.isResearchComplete(event.player.getCommandSenderName(), researchInfo[0]))
-						if (!ThaumcraftApiHelper.isResearchComplete(event.player.getCommandSenderName(),
-								researchInfo[1])) {
-							Thaumcraft.proxy.getResearchManager().completeResearch(event.player, researchInfo[1]);
-							PacketHandler.INSTANCE.sendTo(new PacketSyncResearch(event.player),
-									(EntityPlayerMP) event.player);
-						}
-				}
-			}
-		}
-	}
-
 	@SubscribeEvent
 	public void eventBreakEvent(BlockEvent.BreakEvent event) {
 		World world = event.world;

@@ -1,5 +1,6 @@
 package mjaroslav.mcmods.thaumores.common.wands;
 
+import mjaroslav.mcmods.mjutils.common.thaum.ThaumUtils;
 import mjaroslav.mcmods.thaumores.common.block.BlockInfusedBlockOre;
 import mjaroslav.mcmods.thaumores.common.config.TOConfig;
 import mjaroslav.mcmods.thaumores.common.init.TOThaum;
@@ -23,7 +24,7 @@ public class TOInfusedOreWandTrigger extends TOBaseWandTrigger {
 			int event) {
 		int meta = world.getBlockMetadata(x, y, z);
 		return player.isSneaking()
-				? ThaumcraftApiHelper.isResearchComplete(player.getCommandSenderName(), TOThaum.riRawCluster)
+				? ThaumUtils.isComplete(player, TOThaum.riRawCluster)
 						&& ThaumcraftApiHelper.consumeVisFromWand(wand, player,
 								new AspectList().add(primals[meta], TOConfig.generalWandVisCountPrimal * 100)
 										.add(Aspect.ORDER, TOConfig.generalWandVisCountPrimal * 100),

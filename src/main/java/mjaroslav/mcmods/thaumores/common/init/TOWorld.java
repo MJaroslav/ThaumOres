@@ -7,10 +7,12 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
 import mjaroslav.mcmods.mjutils.common.objects.IModModule;
 import mjaroslav.mcmods.mjutils.common.objects.ModInitModule;
+import mjaroslav.mcmods.mjutils.common.reaction.ReactionUtils;
 import mjaroslav.mcmods.thaumores.ThaumOresMod;
 import mjaroslav.mcmods.thaumores.common.config.TOConfig;
 import mjaroslav.mcmods.thaumores.common.world.InfusedOreGeneration;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.oredict.OreDictionary;
 
 /** Register all world generations */
 @ModInitModule(modid = ThaumOresMod.MODID)
@@ -23,6 +25,8 @@ public class TOWorld implements IModModule {
 	public void init(FMLInitializationEvent event) {
 		MinecraftForge.EVENT_BUS.register(ThaumOresMod.events);
 		FMLCommonHandler.instance().bus().register(ThaumOresMod.events);
+		if (TOConfig.generalAngryPigs)
+			ReactionUtils.addBlockToPigAngryList(TOBlocks.netherrackInfusedOre, OreDictionary.WILDCARD_VALUE);
 	}
 
 	@Override

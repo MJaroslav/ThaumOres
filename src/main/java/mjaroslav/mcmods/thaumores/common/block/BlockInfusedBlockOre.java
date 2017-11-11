@@ -5,6 +5,7 @@ import java.util.List;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import mjaroslav.mcmods.mjutils.common.thaum.ThaumUtils;
 import mjaroslav.mcmods.thaumores.ThaumOresMod;
 import mjaroslav.mcmods.thaumores.common.config.TOConfig;
 import mjaroslav.mcmods.thaumores.common.init.TOBlocks;
@@ -27,7 +28,6 @@ import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
-import thaumcraft.api.ThaumcraftApiHelper;
 import thaumcraft.api.nodes.IRevealer;
 import thaumcraft.client.lib.UtilsFX;
 import thaumcraft.common.config.ConfigItems;
@@ -83,10 +83,8 @@ public class BlockInfusedBlockOre extends Block implements ITileEntityProvider {
 		boolean hasWarpVisualAcuity = false;
 		boolean canView = false;
 		if (player != null) {
-			hasVisualAcuity = ThaumcraftApiHelper.isResearchComplete(player.getCommandSenderName(),
-					TOThaum.riVisualAcuity);
-			hasWarpVisualAcuity = ThaumcraftApiHelper.isResearchComplete(player.getCommandSenderName(),
-					TOThaum.riWarpVisualAcuity);
+			hasVisualAcuity = ThaumUtils.isComplete(player, TOThaum.riVisualAcuity);
+			hasWarpVisualAcuity = ThaumUtils.isComplete(player, TOThaum.riWarpVisualAcuity);
 			if ((player.inventory.armorItemInSlot(3) != null)
 					&& (player.inventory.armorItemInSlot(3).getItem() instanceof IRevealer)
 					&& (((IRevealer) player.inventory.armorItemInSlot(3).getItem())
@@ -100,7 +98,7 @@ public class BlockInfusedBlockOre extends Block implements ITileEntityProvider {
 				viewDistance = hasVisualAcuity ? 16.0D : 8.0D;
 			}
 			if (hasWarpVisualAcuity) {
-				int warp = ThaumOresMod.getTotalWarp(player);
+				int warp = ThaumUtils.getWarp(player);
 				canView = true;
 				double warpViewDistance = warp * TOConfig.generalWarpVisualAcuityModifier;
 				if (warpViewDistance > viewDistance)
