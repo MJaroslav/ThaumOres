@@ -1,7 +1,8 @@
-_Thanslated by google translate._
 # ThaumOres
 
 Small mod adds Thaumcraft's shards ore to generation of the End, the Nether and Overworld's bedrock layer.
+
+You can send a pull request if you find grammar errors.
 
 ### This modification contains: ###
 * Ores of the main aspects in the End, the Nether and the level of the bedrock;
@@ -11,4 +12,4 @@ Small mod adds Thaumcraft's shards ore to generation of the End, the Nether and 
 
 ### Dependencies: ###
 * MJUtils
-* ThaumCraftadds
+* ThaumCraft

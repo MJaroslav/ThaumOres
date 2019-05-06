@@ -2,9 +2,9 @@
 {
   "modid": "thaumores",
   "name": "ThaumOres",
-  "description": "Small addon for thaumcraft based on infused ore",
-  "version": "1.5.0",
-  "mcversion": "1.7.10",
+  "description": "Small addon for thaumcraft based on infused ore.",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
   "url": "https://minecraft.curseforge.com/projects/thaumores",
   "authorList": ["MJaroslav"],
   "credits": "Thanks Svwergio_mel for translation of en_US.lang",

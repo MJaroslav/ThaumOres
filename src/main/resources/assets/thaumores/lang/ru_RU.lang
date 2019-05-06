@@ -1,5 +1,5 @@
 # Creative Tab
-itemGroup.thaumores=Таум-руды
+itemGroup.thaumores=Таумруды
 
 # Items
 item.shardCluster.0.name=Сырой грозовой кристальный кластер
@@ -12,16 +12,20 @@ item.shardCluster.5.name=Сырой энтропийный кристальны�
 # Blocks
 tile.infusedOre.0.name=Грозовая руда ({base})
 tile.infusedOre.1.name=Огненная руда ({base})
-tile.infusedOre.2.name=Ледяная рула ({base})
+tile.infusedOre.2.name=Ледяная руда ({base})
 tile.infusedOre.3.name=Руда земляного кристалла ({base})
 tile.infusedOre.4.name=Руда кристалла порядка ({base})
 tile.infusedOre.5.name=Энтропийная руда ({base})
+
+# Chat
+chat.thaumores.taintacle=Оказывается, в реках зараженных земель можно найти не только рыбу...
+chat.thaumores.ring=Кажется, вы зацепили крючком своё кольцо, однако, оно как-то изменилось...
 
 # Waila config
 option.hideinfusedore=Скрыть руду
 
 # Thaumcraft research icon
-tc.research_category.THAUMORES=Таум-руды
+tc.research_category.THAUMORES=Таумруды
 tc.research_name.INFUSEDBEDROCK=Кристальная коренная порода
 tc.research_text.INFUSEDBEDROCK=Я не могу это сломать!
 tc.research_name.INFUSEDENDSTONE=Кристальный камень края
